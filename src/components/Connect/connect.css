@@ -1,0 +1,56 @@
+.main {
+  flex: 1;
+}
+
+.bg-dark {
+  background-color: #12002b;
+  padding-top: 50px;
+  padding-bottom: 300px;
+}
+
+.sign-in-content {
+  box-sizing: border-box;
+  background-color: white;
+  width: 300px;
+  height: auto;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.sign-in-content .input-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+.sign-in-content .input-wrapper label {
+  font-weight: bold;
+}
+.sign-in-content .input-wrapper input {
+  padding: 5px;
+  font-size: 1.2rem;
+}
+.sign-in-content .input-remember {
+  display: flex;
+}
+.sign-in-content .input-remember label {
+  font-weight: 400;
+}
+.sign-in-content .sign-in-button {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+}
+.sign-in-content i {
+  display: flex;
+  justify-content: center;
+}
+.sign-in-content h1 {
+  display: flex;
+  justify-content: center;
+}/*# sourceMappingURL=connect.css.map */

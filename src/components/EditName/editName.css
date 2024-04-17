@@ -1,0 +1,62 @@
+.tete {
+  width: 300px;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  margin: 0 auto;
+}
+.teteinput {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+.tetebutton {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  color: white;
+  background-color: #00BC77;
+  border: none;
+}
+.tete h1 {
+  color: #fff;
+  margin: 0px auto 0px;
+}
+.tete h2 {
+  color: #fff;
+  font-size: 30px;
+  margin: 5px 0px 20px;
+}
+.tete .edit-button {
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  margin: 0px auto 40px;
+}
+.tete .edit-button-info {
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+  font-weight: bold;
+  padding: 8px;
+  margin: 15px 5px;
+  width: 116px;
+}
+.tete .button-edit {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.tete .input-group {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+.tete .input-group label {
+  color: white;
+}/*# sourceMappingURL=editName.css.map */

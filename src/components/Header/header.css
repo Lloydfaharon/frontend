@@ -1,0 +1,46 @@
+* {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+header nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3125rem 1.25rem;
+}
+header nav img {
+  max-width: 100%;
+  width: 12.5rem;
+}
+header nav a {
+  color: #2c3e50;
+  display: flex;
+  margin-right: 0.5rem;
+}
+header nav a p {
+  font-weight: bold;
+}
+header nav a i {
+  font-size: 1.1rem;
+  margin-right: 0.5rem;
+}
+header nav .connected {
+  display: flex;
+  gap: 1rem;
+  margin-right: 0.5rem;
+}
+header nav .connected p {
+  font-weight: 700;
+}
+header nav .connected i {
+  font-size: 1.1rem;
+  margin-right: 0.5rem;
+}
+header nav .not-connected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header nav .not-connected p {
+  font-weight: 700;
+}/*# sourceMappingURL=header.css.map */
