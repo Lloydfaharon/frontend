@@ -14,13 +14,16 @@ function Connect() {
   const { isConnected } = useSelector(state => state.login);
 
   useEffect(() => {
+    if (isConnected) {
+      window.location.href = '/profil';
+    }
     // Vérifiez si un token existe déjà dans le localStorage
     const token = sessionStorage.getItem('token');
     if (token) {
       // Redirigez l'utilisateur vers la page de profil
       window.location.href = '/profil';
     }
-  }, []);
+  }, [isConnected]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -29,8 +32,10 @@ function Connect() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(login(username, password));
+    console.log(isConnected)
     if (isConnected) {
       // Redirigez l'utilisateur vers la page de profil
+
       window.location.href = '/profil';
     }
   };

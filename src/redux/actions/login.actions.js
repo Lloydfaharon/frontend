@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 //SIGN IN
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
@@ -15,10 +14,11 @@ export const EDIT_USERNAME = "EDIT_USERNAME"
 /* Authentication actions */
 
 export const login = (email, password) => async (dispatch) => {
+  
     try {
       const response = await axios.post('http://localhost:3001/api/v1/user/login', { email, password });
-      const token = response.data.token;
-      console.log(token)
+      const token = response.data.body.token;
+      console.log(response)
 
        // Stocker le token dans le local storage
        sessionStorage.setItem('token',token);
