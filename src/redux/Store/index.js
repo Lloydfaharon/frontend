@@ -1,8 +1,5 @@
 import { configureStore,combineReducers } from "@reduxjs/toolkit";
 
-
-
-
 import userReducer  from "../reducers/userReducer";
 import loginReducer from "../reducers/login.reducer";
 

@@ -5,6 +5,7 @@ import TransactionData from '../../data/transactionData.json';
 import './profilePage.css'
 
 function profilePage() {
+  
   return (
     <main className="main bg-dark">
       <div>
