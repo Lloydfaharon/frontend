@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 //SIGN IN
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
@@ -7,7 +8,10 @@ export const LOGOUT = "LOGOUT";
 
 //user profile
 export const GET_USERPROFILE = "GET_USERPROFILE"
-export const EDIT_USERNAME = "EDIT_USERNAME"
+export const USER_PROFILE_SUCCESS = 'USER_PROFILE_SUCCESS'
+export const USER_PROFILE_FAIL = 'USER_PROFILE_FAIL'
+export const USER_PROFILE_RESET = 'USER_PROFILE_RESET'
+export const USER_PROFILE_UPDATE = 'USER_PROFILE_UPDATE'
 
 
 
@@ -21,7 +25,7 @@ export const login = (email, password) => async (dispatch) => {
       console.log(response)
 
        // Stocker le token dans le local storage
-       sessionStorage.setItem('token',token);
+       localStorage.setItem('token',token);
 
       dispatch({ type: LOGIN_SUCCESS, payload: token });
     } catch (error) {
@@ -38,17 +42,45 @@ export const login = (email, password) => async (dispatch) => {
 
 
 /* User data recovery action */
-export const userProfile = (userData) => {
+export const userProfilef = (userData) => {
     return {
         type: GET_USERPROFILE,
         payload: userData,
     }
 }
 
+// User's profile action
+
+export const userProfile = (token) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+
+    const { data } = await axios.post(
+      'http://localhost:3001/api/v1/user/profile',
+      { token },
+      config
+    )
+
+    dispatch({ type: USER_PROFILE_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({
+      type: USER_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
 /* Username update action */
 export const updateUsername = (username) => {
     return {
-        type: EDIT_USERNAME,
+        type: USER_PROFILE_UPDATE,
         payload: username,
     }
 }

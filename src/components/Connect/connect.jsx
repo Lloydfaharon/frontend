@@ -1,29 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'; // Importez useHistory
 import { login } from '../../redux/actions/login.actions';
 import './connect.css';
 
 function Connect() {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialisez useHistory
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
 
   const { username, password } = formData;
-  const { isConnected } = useSelector(state => state.login);
-
-  useEffect(() => {
-    if (isConnected) {
-      window.location.href = '/profil';
-    }
-    // Vérifiez si un token existe déjà dans le localStorage
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      // Redirigez l'utilisateur vers la page de profil
-      window.location.href = '/profil';
-    }
-  }, [isConnected]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -32,12 +21,7 @@ function Connect() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(login(username, password));
-    console.log(isConnected)
-    if (isConnected) {
-      // Redirigez l'utilisateur vers la page de profil
-
-      window.location.href = '/profil';
-    }
+    navigate('/profil'); // Redirigez l'utilisateur vers la page de profil avec useHistory
   };
 
   return (
@@ -80,3 +64,4 @@ function Connect() {
 }
 
 export default Connect;
+
