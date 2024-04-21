@@ -3,15 +3,17 @@ import {
   USER_PROFILE_SUCCESS,
   USER_PROFILE_UPDATE,
   USER_PROFILE_FAIL,
-  USER_PROFILE_RESET
+  USER_PROFILE_RESET,
 } from "../actions/login.actions";
 
 /* Initial user state */
 const initialState = {
   status: "VOID",
+  isConnected: false,
   userData: {},
-  firstName: '',
-  lastName: '',
+  firstName: "",
+  lastName: "",
+  userName: "",
 };
 
 export default function userReducer(state = initialState, action) {
@@ -19,22 +21,37 @@ export default function userReducer(state = initialState, action) {
     case GET_USERPROFILE:
       return {
         ...state,
+        isConnected: true,
         status: "SUCCEEDED",
         userData: action.payload,
       };
     case USER_PROFILE_SUCCESS:
       return {
+        ...state,
         firstName: action.payload.body.firstName,
         lastName: action.payload.body.lastName,
+        userName: action.payload.body.userName,
+        status: "SUCCEEDED", // Assure-toi de conserver le statut de connexion
+        isConnected: true,
+        userData: action.payload, // Tu peux conserver les autres données utilisateur si nécessaire
       };
+
     case USER_PROFILE_UPDATE:
       return {
-        success: true,
+        ...state,
+        success: true, // Peut-être que tu voulais inclure cela dans `userData` ?
         firstName: action.payload.body.firstName,
         lastName: action.payload.body.lastName,
+        // Assure-toi de conserver les autres champs de userData si nécessaire
       };
+
     case USER_PROFILE_FAIL:
-      return { error: action.payload };
+      return {
+        ...state,
+        error: action.payload,
+        status: "FAILED", // Tu pourrais ajouter une indication d'échec de la requête
+      };
+
     case USER_PROFILE_RESET:
       return {
         firstName: null,

@@ -1,58 +1,51 @@
 import React, { useState } from 'react';
-import './editName.css'; 
+import { useSelector } from 'react-redux';
+
+import './editName.css';
 
 function EditName() {
   const [editMode, setEditMode] = useState(false);
-  const [userName, setUserName] = useState('TJav');
-  const [firstName, setFirstName] = useState('Tony');
-  const [lastName, setLastName] = useState('Jarvis');
+  const { firstName, userName, lastName } = useSelector((state) => state.user);
+  const [editedUserName, setEditedUserName] = useState(userName);
 
   const handleUserNameChange = (event) => {
-    setUserName(event.target.value);
-  };  
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  }
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
+    setEditedUserName(event.target.value);
   };
 
   const handleCancel = () => {
     setEditMode(false);
-    // Optionnel: réinitialiser le nom à la dernière valeur sauvegardée si nécessaire
+    setEditedUserName(userName);
   };
 
   const handleSave = () => {
     setEditMode(false);
-    // Ici tu enverrais les données au backend pour les sauvegarder
+    // Ici, tu enverrais les données au backend pour les sauvegarder
   };
 
   return (
     <div className="tete">
-      
       {editMode ? (
         <>
           <h1>Edit user info<br /></h1>
           <div className='input-group'>
             <label htmlFor="userName">User name:</label>
-            <input type="text" value={userName} onChange={handleUserNameChange} />
+            <input type="text" value={editedUserName} onChange={handleUserNameChange} />
           </div>
 
           <div className='input-group'>
             <label htmlFor="firstName">First name:</label>
-            <input type="text" value={firstName} onChange={handleFirstNameChange} />
+            <input type="text" value={firstName} disabled />
           </div>
 
           <div className='input-group'>
             <label htmlFor="lastName">Last name:</label>
-            <input label='LastName' type="text" value={lastName} onChange={handleLastNameChange} />
+            <input label='LastName' type="text" value={lastName} disabled />
           </div>
-          
+
           <div className='button-edit'>
             <button className='edit-button-info' onClick={handleSave}>Save</button>
             <button className='edit-button-info' onClick={handleCancel}>Cancel</button>
           </div>
-          
         </>
       ) : (
         <>

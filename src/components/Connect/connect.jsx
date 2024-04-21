@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // Importez useHistory
-import { login } from '../../redux/actions/login.actions';
+import { login , userProfile } from '../../redux/actions/login.actions';
 import './connect.css';
 
 function Connect() {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Initialisez useHistory
+  const navigate = useNavigate(); // Initialisez useNavigate
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -21,6 +21,7 @@ function Connect() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(login(username, password));
+    await dispatch(userProfile()); 
     navigate('/profil'); // Redirigez l'utilisateur vers la page de profil avec useHistory
   };
 
