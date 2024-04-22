@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserName } from '../../redux/actions/all.actions';
 
 import './editName.css';
 
 function EditName() {
+  const dispatch = useDispatch()
   const [editMode, setEditMode] = useState(false);
   const { firstName, userName, lastName } = useSelector((state) => state.user);
   const [editedUserName, setEditedUserName] = useState(userName);
+  
 
   const handleUserNameChange = (event) => {
     setEditedUserName(event.target.value);
@@ -19,6 +22,7 @@ function EditName() {
 
   const handleSave = () => {
     setEditMode(false);
+    dispatch(updateUserName(editedUserName));
     // Ici, tu enverrais les données au backend pour les sauvegarder
   };
 

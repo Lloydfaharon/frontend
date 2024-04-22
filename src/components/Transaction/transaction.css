@@ -20,6 +20,11 @@
 .account-amount-description {
   margin: 0;
 }
+@media screen and (max-width: 680px) {
+  .account-amount {
+    font-size: 40px;
+  }
+}
 .account-title {
   margin: 0;
   padding: 0;
@@ -41,7 +46,18 @@
   background-color: #00bc77;
   color: #fff;
 }
+@media screen and (max-width: 680px) {
+  .account .transaction-button {
+    width: 100%;
+  }
+}
 .account .cta {
   justify-content: flex-end;
   display: flex;
+}
+@media screen and (max-width: 680px) {
+  .account {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }/*# sourceMappingURL=transaction.css.map */

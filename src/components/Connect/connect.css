@@ -16,6 +16,9 @@
   margin: 0 auto;
   padding: 2rem;
 }
+.sign-in-content .error-message {
+  color: red;
+}
 .sign-in-content .input-wrapper {
   display: flex;
   flex-direction: column;

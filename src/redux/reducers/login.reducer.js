@@ -1,5 +1,5 @@
 // login.reducer.js
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from "../actions/login.actions";
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from "../actions/all.actions";
 
 const initialState = {
   isConnected: false,

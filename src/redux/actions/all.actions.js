@@ -9,8 +9,11 @@ export const LOGOUT = "LOGOUT";
 export const GET_USERPROFILE = "GET_USERPROFILE";
 export const USER_PROFILE_SUCCESS = "USER_PROFILE_SUCCESS";
 export const USER_PROFILE_FAIL = "USER_PROFILE_FAIL";
-export const USER_PROFILE_RESET = "USER_PROFILE_RESET";
-export const USER_PROFILE_UPDATE = "USER_PROFILE_UPDATE";
+
+//update username
+export const UPDATE_USERNAME_REQUEST = 'UPDATE_USERNAME_REQUEST';
+export const UPDATE_USERNAME_SUCCESS = 'UPDATE_USERNAME_SUCCESS';
+export const UPDATE_USERNAME_FAIL = 'UPDATE_USERNAME_FAIL';
 
 /* Authentication actions */
 
@@ -72,9 +75,26 @@ export const userProfile = () => async (dispatch) => {
 };
 
 /* Username update action */
-export const updateUsername = (username) => {
-  return {
-    type: USER_PROFILE_UPDATE,
-    payload: username,
-  };
+export const updateUserName = (userName) => async (dispatch) => {
+  dispatch({ type: UPDATE_USERNAME_REQUEST });
+
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.put(
+      'http://localhost:3001/api/v1/user/profile',
+      { userName },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    dispatch({ type: UPDATE_USERNAME_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_USERNAME_FAIL,
+      payload: error.response.data.message || 'Failed to update username',
+    });
+  }
 };

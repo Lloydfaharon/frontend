@@ -17,6 +17,9 @@
     margin: 0 auto;
     //margin-top: 3rem;
     padding: 2rem;
+    .error-message {
+        color: red;
+    }
     .input-wrapper {
         display: flex;
         flex-direction: column;

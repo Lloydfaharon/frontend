@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; // Importez useHistory
-import { login , userProfile } from '../../redux/actions/login.actions';
+import { useNavigate } from 'react-router-dom'; 
+import { login, userProfile } from '../../redux/actions/all.actions';
 import './connect.css';
 
 function Connect() {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Initialisez useNavigate
+  const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const { username, password } = formData;
 
@@ -20,16 +21,22 @@ function Connect() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(login(username, password));
-    await dispatch(userProfile()); 
-    navigate('/profil'); // Redirigez l'utilisateur vers la page de profil avec useHistory
+    try {
+      await dispatch(login(username, password));
+      await dispatch(userProfile()); 
+      navigate('/profil'); 
+    } catch (err) {
+      setErrorMessage(); // Met à jour le message d'erreur
+    }
   };
+  
 
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
+        {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Affiche le message d'erreur s'il y en a un */}
         <form className="form" onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
@@ -65,4 +72,3 @@ function Connect() {
 }
 
 export default Connect;
-
