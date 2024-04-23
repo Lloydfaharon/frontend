@@ -8,8 +8,10 @@ import reportWebVitals from './reportWebVitals';
 // Redux
 import { Provider } from 'react-redux';
 import store from './redux/Store/index';
+import { userProfile } from './redux/actions/all.actions';
 
-//store.dispatch(userProfile()) demarrez l'action directement au debut de l'app
+store.dispatch(userProfile()) //demarrez l'action directement au debut de l'app
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

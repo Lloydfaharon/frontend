@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/all.actions"; // Importez l'action de déconnexion
@@ -9,25 +9,13 @@ import "./header.css";
 
 function Header() {
   const dispatch = useDispatch();
-  const { isConnected } = useSelector((state) => state.login); // Obtenez l'état de connexion à partir du Redux store
-  const { userName } = useSelector((state) => state.user); // Obtenez l'état de connexion à partir du Redux store
-  const [isUserConnected, setIsUserConnected] = useState(false);
+  const isConnected = useSelector((state) => state.login.isConnected);
+  const userName = useSelector((state) => state.user.userName); // Obtenez le nom d'utilisateur du Redux store
+
   const handleLogout = () => {
-    dispatch(logout()); // Déclenchez l'action de déconnexion lorsque l'utilisateur clique sur le bouton "Logout"
+    dispatch(logout());
     localStorage.removeItem("token");
   };
-  useEffect(() => {
-    // Met à jour l'état de connexion local lorsque l'état de connexion du Redux store change
-    setIsUserConnected(isConnected);
-  }, [isConnected]);
-
-  /*useEffect(() => {
-    if (isConnected) {
-      setIsUserConnected(true);
-    } else {
-      setIsUserConnected(false);
-    }
-  }, [isConnected, setIsUserConnected]);*/
 
   return (
     <header>
@@ -36,14 +24,12 @@ function Header() {
           <img src={Logo} alt="Bank Logo" />
         </Link>
         <div className="not-connected">
-          {/* Changez le texte du bouton en fonction de l'état de connexion */}
-          {isUserConnected ? (
+          {isConnected ? (
             <>
               <i className="fa-solid fa-circle-user"></i>
               <Link to="/profil">
-                <p>{userName}</p>
+                <p>{userName}</p> {/* Affichez le nom d'utilisateur */}
               </Link>
-              
               <i className="fa fa-sign-out"></i>
               <Link onClick={handleLogout}>
                 <p>Logout</p>
@@ -63,3 +49,4 @@ function Header() {
 }
 
 export default Header;
+
