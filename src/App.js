@@ -1,7 +1,5 @@
 
-import React, { useEffect } from 'react';
-import axiosInstance from './redux/utilitaire/axiosConfig';
-//import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
 import "./App.css";
 
 import Header from "./components/Header/header";
@@ -46,13 +44,7 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      // Configurez le token dans les en-têtes Axios pour les appels API ultérieurs
-      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    }
-  }, []);
+ 
   return (
     <React.StrictMode>
       <RouterProvider router={router} />

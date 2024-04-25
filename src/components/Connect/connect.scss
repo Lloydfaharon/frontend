@@ -19,6 +19,14 @@
     padding: 2rem;
     .error-message {
         color: red;
+        display: none; // Définit l'affichage par défaut sur 'none'
+        font-size: 16px;
+        &.visible {
+            display: block; // Affiche le message d'erreur
+        }
+        &.hidden {
+            display: none; // Masque le message d'erreur
+        }
     }
     .input-wrapper {
         display: flex;

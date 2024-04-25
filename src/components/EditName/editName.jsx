@@ -25,7 +25,6 @@ function EditName() {
     setEditMode(false);
     await dispatch(updateUserName(editedUserName));
     await dispatch(userProfile() )
-    // Ici, tu enverrais les données au backend pour les sauvegarder
   };
 
   return (

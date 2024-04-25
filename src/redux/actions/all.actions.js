@@ -4,6 +4,7 @@ import axios from "axios";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
+export const SHOW_LOGIN_ERROR_MESSAGE = 'SHOW_LOGIN_ERROR_MESSAGE'; // Ajout de la constante pour afficher le message d'erreur
 
 //user profile
 export const GET_USERPROFILE = "GET_USERPROFILE";
@@ -18,21 +19,33 @@ export const UPDATE_USERNAME_FAIL = 'UPDATE_USERNAME_FAIL';
 /* Authentication actions */
 
 export const login = (email, password) => async (dispatch) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:3001/api/v1/user/login",
-      { email, password }
-    );
-    const token = response.data.body.token;
-    console.log(response);
+  if (localStorage.getItem('token')){
+    const hasToken = localStorage.getItem('token')
+    dispatch({ type: LOGIN_SUCCESS, payload: hasToken });
+  }else{
+    try {
+    
+      const response = await axios.post(
+        "http://localhost:3001/api/v1/user/login",
+        { email, password }
+      );
+      const token = response.data.body.token;
+      console.log(response);
+  
+      // Stocker le token dans le local storage
+      localStorage.setItem("token", token);
+  
+      dispatch({ type: LOGIN_SUCCESS, payload: token });
+    } catch (error) {
+      
+      dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+  
+      // Envoi d'une action pour rendre visible la classe error-message
+      dispatch({ type: SHOW_LOGIN_ERROR_MESSAGE });
+    }
 
-    // Stocker le token dans le local storage
-    localStorage.setItem("token", token);
-
-    dispatch({ type: LOGIN_SUCCESS, payload: token });
-  } catch (error) {
-    dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
   }
+ 
 };
 
 export const logout = () => {
@@ -40,6 +53,11 @@ export const logout = () => {
     type: LOGOUT,
   };
 };
+
+// Action pour afficher le message d'erreur de connexion
+export const showLoginErrorMessage = () => ({
+  type: SHOW_LOGIN_ERROR_MESSAGE,
+});
 
 // User's profile action
 export const userProfile = () => async (dispatch) => {
@@ -52,16 +70,22 @@ export const userProfile = () => async (dispatch) => {
 
     const response = await axios.post(
       "http://localhost:3001/api/v1/user/profile",
-      null, // Utilise null comme corps de la requête
+      null,
       {
         headers: {
-          Authorization: `Bearer ${token}`, // Utilise le token récupéré depuis le local storage
+          Authorization: `Bearer ${token}`,
         },
       }
     );
 
     const data = await response.data;
-    console.log(data);
+
+    // Récupérer l'ID de l'utilisateur connecté
+    const userId = data.body.id;
+
+    // Stocker l'ID de l'utilisateur dans le local storage
+    localStorage.setItem("userId", userId);
+
     dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
