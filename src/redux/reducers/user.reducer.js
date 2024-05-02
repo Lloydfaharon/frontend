@@ -30,15 +30,15 @@ export default function userReducer(state = initialState, action) {
         firstName: action.payload.body.firstName,
         lastName: action.payload.body.lastName,
         userName: action.payload.body.userName,
-        status: "SUCCEEDED", // Assure-toi de conserver le statut de connexion
+        status: "SUCCEEDED", 
         isConnected: true,
-        userData: action.payload, // Tu peux conserver les autres données utilisateur si nécessaire
+        userData: action.payload, 
       };
     case USER_PROFILE_FAIL:
       return {
         ...state,
         error: action.payload,
-        status: "FAILED", // Tu pourrais ajouter une indication d'échec de la requête
+        status: "FAILED", 
       };
     default:
       return state;

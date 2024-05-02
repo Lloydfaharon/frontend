@@ -4,7 +4,7 @@ import axios from "axios";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
-export const SHOW_LOGIN_ERROR_MESSAGE = 'SHOW_LOGIN_ERROR_MESSAGE'; // Ajout de la constante pour afficher le message d'erreur
+
 
 //user profile
 export const GET_USERPROFILE = "GET_USERPROFILE";
@@ -40,8 +40,6 @@ export const login = (email, password) => async (dispatch) => {
       
       dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
   
-      // Envoi d'une action pour rendre visible la classe error-message
-      dispatch({ type: SHOW_LOGIN_ERROR_MESSAGE });
     }
 
   }
@@ -53,11 +51,6 @@ export const logout = () => {
     type: LOGOUT,
   };
 };
-
-// Action pour afficher le message d'erreur de connexion
-export const showLoginErrorMessage = () => ({
-  type: SHOW_LOGIN_ERROR_MESSAGE,
-});
 
 // User's profile action
 export const userProfile = () => async (dispatch) => {

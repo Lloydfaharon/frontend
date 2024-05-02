@@ -16,6 +16,10 @@ header nav a {
   color: #2c3e50;
   display: flex;
   margin-right: 0.5rem;
+  text-decoration: none;
+}
+header nav a:hover {
+  text-decoration: underline;
 }
 header nav a p {
   font-weight: bold;

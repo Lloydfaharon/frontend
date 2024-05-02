@@ -14,7 +14,7 @@ import ErrorPage from "./pages/ErrorPage/errorPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom"; 
 
 
-// Définit un composant fonctionnel pour intégrer Navbar et Footer autour du contenu enfant
+// Définit un composant fonctionnel pour intégrer Header et Footer autour du contenu enfant
 const LayoutWithHeaderFooter = ({ children }) => (
   <>
     <Header />

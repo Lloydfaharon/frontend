@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; // Ajout de useSelector
+import { useDispatch, useSelector } from 'react-redux'; 
 import { useNavigate } from 'react-router-dom'; 
-import { login, userProfile, showLoginErrorMessage } from '../../redux/actions/all.actions'; // Importez showLoginErrorMessage
+import { login, userProfile} from '../../redux/actions/all.actions'; 
 import './connect.css';
 
 function Connect() {
@@ -13,7 +13,7 @@ function Connect() {
   });
 
   const { username, password } = formData;
-  const errorMessageVisible = useSelector(state => state.login.displayLoginErrorMessage); // Utilisez useSelector pour accéder à l'état errorMessageVisible
+  const errorMessageVisible = useSelector(state => state.login.displayLoginErrorMessage); 
 
   
   const handleChange = (e) => {
@@ -30,8 +30,6 @@ function Connect() {
       
     } catch (err) {
       console.log(err)
-      
-      dispatch(showLoginErrorMessage()); // Utilisez l'action showLoginErrorMessage en cas d'échec de connexion
     }
   };
 
@@ -41,7 +39,7 @@ function Connect() {
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
         {/* Affiche le message d'erreur s'il y en a un */}
-        <p className={`error-message ${errorMessageVisible ? 'visible' : 'hidden'}`}>Erreur dans l'identifiant ou le mot de passe</p> {/* Utilisez la classe conditionnelle errorMessageVisible */}
+        <p className={`error-message ${errorMessageVisible ? 'visible' : 'hidden'}`}>Erreur dans l'identifiant ou le mot de passe</p> 
         <form className="form" onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>

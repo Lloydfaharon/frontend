@@ -19,7 +19,7 @@ const connectInstantly = async () => {
   // Vérifier si le token existe dans le localStorage
   const token = localStorage.getItem('token');
   
-  console.log(token)
+  //console.log(token)
   if (token) {
     // Si le token existe, déclencher l'action de connexion avec ce token
     store.dispatch(login(token));
