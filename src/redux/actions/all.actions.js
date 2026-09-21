@@ -39,9 +39,15 @@ export const login = (email, password) => async (dispatch) => {
 
       dispatch({ type: LOGIN_SUCCESS, payload: token });
     } catch (error) {
+      // Sécurité : évite l'erreur "Cannot read properties of undefined (reading 'data')"
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Erreur de connexion au serveur";
+
       dispatch({ 
         type: LOGIN_FAIL, 
-        payload: error.response?.data?.message || error.message 
+        payload: errorMessage 
       });
     }
   }
