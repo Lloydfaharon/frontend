@@ -1,10 +1,12 @@
 import axios from "axios";
 
+
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001/api/v1";
+
 //SIGN IN
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
-
 
 //user profile
 export const GET_USERPROFILE = "GET_USERPROFILE";
@@ -20,30 +22,28 @@ export const UPDATE_USERNAME_FAIL = 'UPDATE_USERNAME_FAIL';
 
 export const login = (email, password) => async (dispatch) => {
   if (localStorage.getItem('token')){
-    const hasToken = localStorage.getItem('token')
+    const hasToken = localStorage.getItem('token');
     dispatch({ type: LOGIN_SUCCESS, payload: hasToken });
-  }else{
+  } else {
     try {
-    
       const response = await axios.post(
-        "http://localhost:3001/api/v1/user/login",
+        `${API_BASE_URL}/user/login`,
         { email, password }
       );
       const token = response.data.body.token;
       console.log(response);
-  
+
       // Stocker le token dans le local storage
       localStorage.setItem("token", token);
-  
+
       dispatch({ type: LOGIN_SUCCESS, payload: token });
     } catch (error) {
-      
-      dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
-  
+      dispatch({ 
+        type: LOGIN_FAIL, 
+        payload: error.response?.data?.message || error.message 
+      });
     }
-
   }
- 
 };
 
 export const logout = () => {
@@ -58,11 +58,11 @@ export const userProfile = () => async (dispatch) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      throw new Error("No token found"); // Lance une erreur si aucun token n'est trouvé
+      throw new Error("No token found");
     }
 
     const response = await axios.post(
-      "http://localhost:3001/api/v1/user/profile",
+      `${API_BASE_URL}/user/profile`,
       null,
       {
         headers: {
@@ -98,7 +98,7 @@ export const updateUserName = (userName) => async (dispatch) => {
   try {
     const token = localStorage.getItem('token');
     const response = await axios.put(
-      'http://localhost:3001/api/v1/user/profile',
+      `${API_BASE_URL}/user/profile`,
       { userName },
       {
         headers: {
@@ -111,7 +111,7 @@ export const updateUserName = (userName) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_USERNAME_FAIL,
-      payload: error.response.data.message || 'Failed to update username',
+      payload: error.response?.data?.message || 'Failed to update username',
     });
   }
 };
